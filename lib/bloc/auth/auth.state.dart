@@ -14,18 +14,33 @@ final class AuthInitial extends AuthState {}
 final class AuthLoading extends AuthState {}
 
 final class AuthAuthenticated extends AuthState {
-  final String? uid;
+  final UserModel user;
 
-  const AuthAuthenticated({this.uid});
+  const AuthAuthenticated({required this.user});
 }
 
 final class AuthUnauthenticated extends AuthState {}
+final class AuthSignUpRequestSuccess extends AuthState{
+  final UserModel user;
 
+  const AuthSignUpRequestSuccess({required this.user  });
+}
+final class AuthLoaded extends AuthState{}
 final class AuthEmailVerificationSuccess extends AuthState {}
 
 final class AuthEmailVerificationLoading extends AuthState {}
+final class AuthEmailVerificationSended extends AuthState{
+  final String email;
 
-final class AuthEmailVerificationFailed extends AuthState {}
+  const AuthEmailVerificationSended({required this.email});
+
+}
+
+final class AuthEmailVerificationFailed extends AuthState {
+  final String message;
+
+  const AuthEmailVerificationFailed({required this.message});
+}
 
 final class AuthError extends AuthState {
   final String message;

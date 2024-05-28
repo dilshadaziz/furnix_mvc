@@ -81,7 +81,7 @@ Form loginForm(
         const SizedBox(
           height: 20,
         ),
-        socialMediaSignIn(context),
+        socialMediaSignIn(context,authBloc),
         const SizedBox(
           height: 20,
         ),

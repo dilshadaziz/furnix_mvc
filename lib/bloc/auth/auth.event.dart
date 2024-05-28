@@ -19,10 +19,18 @@ final class SignupRequested extends AuthEvent {
 
  const SignupRequested({required this.user});
 }
+final class AuthNavigateToSignUpRequested extends AuthEvent{}
 final class SendEmailVerificationRequested extends AuthEvent{
   final String email;
 
   const SendEmailVerificationRequested({required this.email});
-
 }
+final class VerifyEmailRequested extends AuthEvent{
+  final String email;
+
+  const VerifyEmailRequested({required this.email});
+}
+
+
+final class GoogleSignInRequested extends AuthEvent{}
 final class LogoutRequested extends AuthEvent {}

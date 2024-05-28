@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
+import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
+import 'package:furnix_store/views/screens/auth/pages/send_verification_page.dart';
 import 'package:furnix_store/views/screens/auth/widgets/continue_with_divider.dart';
 import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
 import 'package:furnix_store/views/screens/auth/widgets/social_media_signIn.dart';
@@ -47,28 +49,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthAuthenticated) {
-            print('authenticatedddddddddddddd');
-              nameController.clear();
-              passwordController.clear();
-              locationController.clear();
-              emailController.clear();
-              confirmPasswordController.clear();
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MainScreenBody()));
-            // Navigator.of(context).pushReplacement(
-            //   MaterialPageRoute(builder: (context) => const HomePage()),
-            // );
+          if (state is AuthSignUpRequestSuccess) {
+           Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SendVerificationPage(user: state.user,)));
+                
           } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
+
+              SnackBar(content: Text(state.message),),
             );
           }
         },
         builder: (context, state) {
-          if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
           return SafeArea(
               child: Padding(
             padding:
@@ -145,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: 'Sign Up',
                         context: context,
                         onTap: () {
-                          _signUpUser(authBloc, _formKey);
+                          _signUpClicked(authBloc, _formKey);
                         }),
                     const SizedBox(
                       height: 15,
@@ -157,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    socialMediaSignIn(context),
+                    socialMediaSignIn(context,authBloc),
                     const SizedBox(
                       height: 20,
                     ),
@@ -165,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: 'Already have an account?',
                         span: 'Sign In',
                         onTap: () {
-                          context.pushNamed(Go.passwordLogin);
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoginScreen()));
                         })
                   ],
                 ),
@@ -177,19 +169,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _signUpUser(AuthBloc authBloc, GlobalKey<FormState> formKey) {
+  void _signUpClicked(AuthBloc authBloc, GlobalKey<FormState> formKey) {
     if (formKey.currentState!.validate()) {
-      authBloc.add(
-        SignupRequested(
-          user: UserModel(
+      final UserModel user = UserModel(
             uid: '',
             email: emailController.text,
             fullName: nameController.text,
             location: locationController.text,
             password: passwordController.text,
-          ),
-        ),
-      );
+          );
+          authBloc.add(SignupRequested(user: user));
     }
   }
 }

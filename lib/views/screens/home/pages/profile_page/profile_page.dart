@@ -4,12 +4,14 @@ import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
-import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/content_divider.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/custom_profile_appbar.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_items.dart';
 
+import '../../../../../models/user_model.dart';
+
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final UserModel user;
+  const ProfilePage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,9 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text(
-                        'Muhammed Sinan M P',
-                        style: TextStyle(
+                      Text(
+                        user.fullName,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -53,7 +55,7 @@ class ProfilePage extends StatelessWidget {
                         height: 2,
                       ),
                       Text(
-                        'Kakkanchery,Malappuram,Kerala',
+                        user.location,
                         style: TextStyle(
                           color:
                               FColors.onBoardingSubTitleColor.withOpacity(0.4),

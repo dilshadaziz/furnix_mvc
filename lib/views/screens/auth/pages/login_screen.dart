@@ -33,10 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            print('authenticated');
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const MainScreenBody()),
-            );
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MainScreenBody(user: state.user,),), (route) => false);
           } else if (state is AuthError) {
             print('in the auth erro');
             ScaffoldMessenger.of(context).showSnackBar(
@@ -45,9 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         builder: (context, state) {
-          if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+          // if (state is AuthLoading) {
+          //   return const Center(child: CircularProgressIndicator());
+          // }
           return SafeArea(
               child: Padding(
             padding:

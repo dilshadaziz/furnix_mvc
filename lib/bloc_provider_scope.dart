@@ -4,24 +4,32 @@ import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
 import 'package:furnix_store/repositories/auth_repository.dart';
+import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
 import 'package:furnix_store/views/screens/auth/pages/send_verification_page.dart';
+import 'package:furnix_store/views/screens/on_boarding/pages/on_boarding_1.dart';
 
 class BlocProviderScope extends StatelessWidget {
   const BlocProviderScope({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => AuthRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => AuthRepository(),
+        ),
+        
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => OnboardingBloc(),
           ),
           BlocProvider(
-            create: (context) =>
-                AuthBloc(authRepository: context.read<AuthRepository>()),
+            create: (context) => AuthBloc(
+                authRepository: context.read<AuthRepository>(),
+            )
           ),
           BlocProvider(
             create: (context) => BottomNavBloc(),
@@ -34,7 +42,7 @@ class BlocProviderScope extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
           ),
-          home: const SendVerificationPage(),
+          home: const OnBoarding1(),
           // routerConfig: router,
         ),
       ),

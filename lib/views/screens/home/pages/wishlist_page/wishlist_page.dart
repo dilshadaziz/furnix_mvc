@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:furnix_store/models/user_model.dart';
 
 class WishListPage extends StatelessWidget {
-  const WishListPage({super.key});
+  final UserModel user;
+  const WishListPage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:furnix_store/models/user_model.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,8 +27,9 @@ class FirebaseAuthService {
   Future<String> signup(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      await sendEmailVerification();
+        email: email,
+        password: password,
+      );
       return 'user created';
     } catch (e) {
       if (e.toString() ==
@@ -38,6 +41,33 @@ class FirebaseAuthService {
     }
   }
 
+  Future<UserModel> signInWithGoogle() async {
+  try {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      // Handle case where user cancels sign-in process
+      throw Exception('Google sign-in process cancelled by user');
+    }
+
+    GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    
+    UserCredential user = await _auth.signInWithCredential(credential);
+
+    final userModel = UserModel(uid: user.user!.uid, fullName: user.user!.displayName!, email: user.user!.email!, location: '', password: '');
+    return userModel;
+  } catch (e) {
+    // Handle any other exceptions that might occur during the sign-in process
+    print('Error signing in with Google: $e');
+    rethrow; // Re-throw the caught exception to propagate it up the call stack
+  }
+}
+
+
   Future<void> logout() async {
     await _auth.signOut();
   }
@@ -46,5 +76,16 @@ class FirebaseAuthService {
     print('sendingg...');
     await _auth.currentUser!.sendEmailVerification();
     print('otp sendedd');
+  }
+
+  Future<bool> checkVerifiedOrNot() async {
+    await _auth.currentUser!.reload();
+    print('in auth ${_auth.currentUser}');
+    return _auth.currentUser!.emailVerified;
+  }
+
+  User getCurrentUser() {
+    print(_auth.currentUser!);
+    return _auth.currentUser!;
   }
 }

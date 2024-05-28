@@ -59,7 +59,7 @@ void _saveAndGoToLogin(BuildContext context){
   // Save to sharedPrefs that user already completed the onboarding screen
 
   // Navigate to Social Media Login
-  context.pushReplacementNamed(Go.passwordLogin);
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const LoginScreen()));
 }
 
 Widget circleButtonLeft(

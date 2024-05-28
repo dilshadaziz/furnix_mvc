@@ -38,8 +38,18 @@ class AuthRepository {
       
       return result;
   }
+  Future<UserModel> signInWithGoogle() async{
+    return await _authService.signInWithGoogle();
+  }
+  Future<void> sendEmailVerificationLink()async{
+    await _authService.sendEmailVerification();
+  }
+  Future<bool> checkVerifiedOrNot()=> _authService.checkVerifiedOrNot();
 
   Future<void> logout() async {
     return await _authService.logout();
+  }
+  void getCurrentUser(){
+    _authService.getCurrentUser();
   }
 }
