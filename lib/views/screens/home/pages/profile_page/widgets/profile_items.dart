@@ -1,35 +1,54 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
+import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
+import 'package:furnix_store/models/user_model.dart';
+import 'package:furnix_store/navigations/right_to_left.dart';
 import 'package:furnix_store/utils/helper/profile_screen_functions.dart';
+import 'package:furnix_store/views/screens/auth/pages/forgot_password_page.dart';
+import 'package:furnix_store/views/screens/home/main_screen.dart';
+import 'package:furnix_store/views/screens/home/pages/profile_page/pages/edit_profile_page.dart';
+import 'package:furnix_store/views/screens/home/pages/profile_page/pages/my_address_page.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/content_divider.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/logout_bottom_sheet.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_options.dart';
 import 'package:ionicons/ionicons.dart';
 
-Column profileItems(AuthBloc authBloc, BuildContext context) {
+Column profileItems(AuthBloc authBloc,BuildContext context) {
   return Column(
     children: [
       ProfileOptions(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(rightToLeft(const EditProfilePage(),duration: const Duration(milliseconds: 350)));
+        },
         item: 'Edit Profile',
         icon: Ionicons.person,
       ),
       const ContentDivider(),
       ProfileOptions(
-        onTap: () {},
+        onTap: () {
+          context.read<BottomNavBloc>().add(
+                      const BottomNavItemSelected(2)); // Dispatch event on tap
+                  HapticFeedback.lightImpact(); // Provide haptic feedback
+        },
         item: 'My Orders',
         icon: Icons.menu_book_rounded,
       ),
       const ContentDivider(),
       ProfileOptions(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(rightToLeft(MyAddressPage()));
+        },
         item: 'My Address',
         icon: CupertinoIcons.map_pin_ellipse,
       ),
       const ContentDivider(),
       ProfileOptions(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(rightToLeft(ForgotPasswordPage(),duration: const Duration(milliseconds: 350)));
+        },
         item: 'Security',
         icon: Ionicons.shield_checkmark_outline,
       ),

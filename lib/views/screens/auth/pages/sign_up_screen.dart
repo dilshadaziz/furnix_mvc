@@ -177,6 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             fullName: nameController.text,
             location: locationController.text,
             password: passwordController.text,
+            addresses: [],
           );
           authBloc.add(SignupRequested(user: user));
     }

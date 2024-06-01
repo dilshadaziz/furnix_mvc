@@ -8,6 +8,8 @@ class UserModel {
   final String location;
   final String? profileUrl;
   final String password;
+  final List<dynamic> addresses;
+  // final String? mobileNumber;
 
   UserModel({
     required this.uid,
@@ -15,7 +17,9 @@ class UserModel {
     required this.email,
     required this.location,
     required this.password,
-    this.profileUrl
+    required this.addresses,
+    this.profileUrl,
+    // this.mobileNumber,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,10 +30,13 @@ class UserModel {
       'location': location,
       'profileUrl': profileUrl,
       'password': password,
+      'addresses' : addresses,
+      // 'mobileNumber' : mobileNumber,
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromMap(Map<String?, dynamic> map) {
+    print(map["addresses"]);
     return UserModel(
       uid: map['uid'] as String,
       fullName: map['fullName'] as String,
@@ -37,6 +44,8 @@ class UserModel {
       location: map['location'] as String,
       profileUrl: map['profileUrl'] != null ? map['profileUrl'] as String : null,
       password: map['password'] as String,
+      addresses: map['addresses'] as List<dynamic>,
+      // mobileNumber: map['mobileNumber'] as String,
     );
   }
 

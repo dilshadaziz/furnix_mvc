@@ -31,6 +31,10 @@ final class VerifyEmailRequested extends AuthEvent{
   const VerifyEmailRequested({required this.email});
 }
 
+final class PasswordResetRequested extends AuthEvent{
+  final String email;
 
+  const PasswordResetRequested({required this.email});
+}
 final class GoogleSignInRequested extends AuthEvent{}
 final class LogoutRequested extends AuthEvent {}

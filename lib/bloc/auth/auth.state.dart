@@ -20,20 +20,36 @@ final class AuthAuthenticated extends AuthState {
 }
 
 final class AuthUnauthenticated extends AuthState {}
-final class AuthSignUpRequestSuccess extends AuthState{
+
+final class AuthSignUpRequestSuccess extends AuthState {
   final UserModel user;
 
-  const AuthSignUpRequestSuccess({required this.user  });
+  const AuthSignUpRequestSuccess({required this.user});
 }
-final class AuthLoaded extends AuthState{}
+
+final class AuthLoaded extends AuthState {}
+
 final class AuthEmailVerificationSuccess extends AuthState {}
 
 final class AuthEmailVerificationLoading extends AuthState {}
-final class AuthEmailVerificationSended extends AuthState{
+
+final class AuthEmailVerificationSended extends AuthState {
   final String email;
 
   const AuthEmailVerificationSended({required this.email});
+}
 
+final class AuthPasswordResetLinkedSended extends AuthState {
+  final String response;
+
+  const AuthPasswordResetLinkedSended({required this.response});
+}
+final class AuthPasswordResetLinkSendingLoading extends AuthState{}
+
+final class AuthPasswordResetLinkSendingFailed extends AuthState {
+  final String error;
+
+  const AuthPasswordResetLinkSendingFailed({required this.error});
 }
 
 final class AuthEmailVerificationFailed extends AuthState {
@@ -41,6 +57,8 @@ final class AuthEmailVerificationFailed extends AuthState {
 
   const AuthEmailVerificationFailed({required this.message});
 }
+
+final class AuthGoogleSignInLoading extends AuthState {}
 
 final class AuthError extends AuthState {
   final String message;

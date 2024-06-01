@@ -19,7 +19,9 @@ PreferredSizeWidget customAppBar({
               SliverAppBar(
                 leading: IconButton(
                     onPressed: () {
+                      if(title == 'Send Verification'){
                       authBloc.add(AuthNavigateToSignUpRequested());
+                      }
                       Navigator.of(context).pop();
                     },
                     icon: const Icon(
@@ -34,7 +36,7 @@ PreferredSizeWidget customAppBar({
                       title,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87.withOpacity(0.6)),
+                          color: Colors.black87.withOpacity(0.7)),
                     ),
                   ],
                 ),

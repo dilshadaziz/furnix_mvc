@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
-import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 import 'package:furnix_store/services/user/firebase_user.service.dart';
 import '../../repositories/auth_repository.dart';
 
@@ -22,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<VerifyEmailRequested>(_onVerifyEmailRequested);
     on<AuthNavigateToSignUpRequested>(_onAuthNavigatetoSignUpRequested);
     on<GoogleSignInRequested>(_onGoogleSignInRequested);
+    on<PasswordResetRequested>(_onPasswordResetRequested);
   }
 
   void _onLoginRequested(LoginRequested event, Emitter<AuthState> emit) async {
@@ -97,7 +97,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onGoogleSignInRequested(GoogleSignInRequested event, Emitter<AuthState> emit) async{
-
+      emit(AuthGoogleSignInLoading());
     try {
         final UserModel? user = await authRepository.signInWithGoogle();
         if (user != null) {
@@ -108,5 +108,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         emit( AuthError(message: e.toString()));
       }
+  }
+
+  Future<void> _onPasswordResetRequested(PasswordResetRequested event, Emitter<AuthState> emit) async{
+
+    emit(AuthPasswordResetLinkSendingLoading());
+
+    try {
+      final response = await authRepository.forgotPassword(email: event.email);
+      if(response == 'User doesn\'t exist'){
+       return emit(AuthPasswordResetLinkSendingFailed(error: response));
+      }
+      emit(AuthPasswordResetLinkedSended(response: response));
+    } catch (e) {
+      emit(AuthPasswordResetLinkSendingFailed(error: e.toString()));
+      print(e);
+    }
+
   }
 }

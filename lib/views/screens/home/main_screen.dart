@@ -9,6 +9,7 @@ import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
 import 'package:furnix_store/controller/main_screen_size_controller/main_screen_size_controller.dart';
 import 'package:furnix_store/models/user_model.dart';
+import 'package:furnix_store/navigations/right_to_left.dart';
 import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 import 'package:furnix_store/services/user/firebase_user.service.dart';
 import 'package:furnix_store/utils/constants/colors.dart';

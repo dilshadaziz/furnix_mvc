@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
+import 'package:furnix_store/navigations/right_to_left.dart';
+import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
+import 'package:furnix_store/views/screens/auth/pages/forgot_password_page.dart';
 import 'package:furnix_store/views/screens/auth/pages/sign_up_screen.dart';
 import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
 import 'package:furnix_store/views/screens/auth/widgets/social_media_signIn.dart';
@@ -53,6 +57,7 @@ Form loginForm(
         elevatedButton(
             text: 'Sign In',
             context: context,
+
             onTap: () {
               _loginClicked(
                   authBloc: authBloc,
@@ -62,7 +67,9 @@ Form loginForm(
         const SizedBox(
           height: 15,
         ),
-        const Text('forgot Password?'),
+        GestureDetector(onTap: (){
+          Navigator.push(context, rightToLeft(ForgotPasswordPage()));
+        },child: const Text('Forgot Password?',style: TextStyle(color: FColors.primaryColor),)),
         const SizedBox(
           height: 20,
         ),

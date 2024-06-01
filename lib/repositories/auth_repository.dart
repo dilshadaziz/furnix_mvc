@@ -39,12 +39,26 @@ class AuthRepository {
       return result;
   }
   Future<UserModel> signInWithGoogle() async{
-    return await _authService.signInWithGoogle();
+    final result =  await _authService.signInWithGoogle();
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    await _userService.saveUserDetails(user: result, userId: userId);
+
+    return result;
   }
+
+  Future<void> signInWithFacebook() async{
+    await _authService.signInWithFacebook();
+  }
+
   Future<void> sendEmailVerificationLink()async{
     await _authService.sendEmailVerification();
   }
   Future<bool> checkVerifiedOrNot()=> _authService.checkVerifiedOrNot();
+  Future<String> forgotPassword({required String email}) async{
+    final String result = await _authService.forgotPassword(email: email);
+    return result;
+  }
 
   Future<void> logout() async {
     return await _authService.logout();

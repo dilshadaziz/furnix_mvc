@@ -15,6 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(user.toMap());
     final authBloc = context.read<AuthBloc>();
     return Scaffold(
       appBar: customProfileAppBar(context),
@@ -37,6 +38,7 @@ class ProfilePage extends StatelessWidget {
 
                   
                   CircleAvatar(
+                    backgroundImage: user.profileUrl != null ? NetworkImage(user.profileUrl!):null,
                     radius: getWidth(context) * 0.2,
                     backgroundColor: FColors.primaryBgColor,
                   ),
@@ -67,7 +69,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  profileItems(authBloc, context)
+                  profileItems(authBloc,context)
                 ]),
               )
             ],
