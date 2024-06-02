@@ -9,12 +9,7 @@ import 'package:furnix_store/views/screens/home/pages/profile_page/pages/add_add
 GestureDetector addNewAddressButton(BuildContext context) {
   return GestureDetector(
     onTap: () async {
-      final currentUser = await FirebaseUserService().getUser();
-      final userId = currentUser.uid;
-      // print(currentUser);
-      FirebaseUserService().addAddress(
-          userId, {'address': 'kurungottu, nochad, naduvannur - 673614'});
-      // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddAddressPage()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddAddressPage()));
     },
     child: Padding(
       padding: EdgeInsets.only(

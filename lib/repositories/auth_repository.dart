@@ -39,6 +39,18 @@ class AuthRepository {
       return result;
   }
   Future<UserModel> signInWithGoogle() async{
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null && currentUser.providerData.any((provider) => provider.providerId == 'google.com')) {
+      // Existing Google user, retrieve user details
+      final existingUser = await _userService.getUser(userId:currentUser.uid);
+      if (existingUser != null) {
+        print('User already signed in with Google. Returning existing user data.');
+        return existingUser; // Return existing user data
+      }
+    }
+
+
     final result =  await _authService.signInWithGoogle();
     String userId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -65,5 +77,8 @@ class AuthRepository {
   }
   void getCurrentUser(){
     _authService.getCurrentUser();
+  }
+   User? checkUserAlreadyLoggedIn() {
+    return _authService.checkUserAlreadyLoggedIn();
   }
 }

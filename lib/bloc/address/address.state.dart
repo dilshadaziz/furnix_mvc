@@ -12,15 +12,21 @@ final class AddressInitial extends AddressState {}
 final class AddressAdded extends AddressState {}
 
 final class AddressChanged extends AddressState {
- final int index;
+  final int index;
 
   const AddressChanged({required this.index});
 
-  
   @override
   List<Object> get props => [index];
 }
 
-final class AddressLoaded extends AddressState {}
+final class AddressLoaded extends AddressState {
+  final List<AddressModel> addresses;
+  const AddressLoaded({required this.addresses});
+}
 
 final class AddAddressLoading extends AddressState {}
+
+final class AddAddressFailed extends AddressState {}
+
+final class FetchAddressError extends AddressState {}

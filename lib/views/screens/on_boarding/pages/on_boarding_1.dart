@@ -1,5 +1,8 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
+import 'package:furnix_store/views/screens/home/main_screen.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/bottom_buttons.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/oval_image.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/texts.dart';
@@ -12,10 +15,13 @@ class OnBoarding1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final PageController pageController = PageController();
     int currentPageIndex = 0;
     return Scaffold(
-      body: BlocBuilder<OnboardingBloc, OnboardingState>(
+      body: BlocConsumer<OnboardingBloc, OnboardingState>(
+        listener: (context,state){
+        },
           builder: (context, state) {
         return Stack(
           children: [

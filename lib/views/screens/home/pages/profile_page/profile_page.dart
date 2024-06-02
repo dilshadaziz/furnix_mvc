@@ -69,7 +69,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  profileItems(authBloc,context)
+                  profileItems(authBloc,context,user.uid)
                 ]),
               )
             ],

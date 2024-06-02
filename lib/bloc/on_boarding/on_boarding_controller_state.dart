@@ -14,3 +14,11 @@ class OnboardingPageChanged extends OnboardingState {
 
   OnboardingPageChanged({required this.currentPage});
 }
+
+class UserLoggedIn extends OnboardingState{
+  final UserModel user;
+
+  UserLoggedIn({required this.user});
+}
+class UserNotLoggedIn extends OnboardingState{
+}

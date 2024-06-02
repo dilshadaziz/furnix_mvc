@@ -15,12 +15,14 @@ class AddAddressRequested extends AddressEvent {
   final String mobileNumber;
   final String address;
   final String pincode;
+  final String userId;
 
   const AddAddressRequested({
     required this.fullName,
     required this.mobileNumber,
     required this.address,
     required this.pincode,
+    required this.userId, 
   });
 
   @override
@@ -34,4 +36,8 @@ class ChangeSelectedAddressRequested extends AddressEvent{
 }
 
 
-final class FetchAddressRequested extends AddressEvent{}
+final class FetchAddressRequested extends AddressEvent{
+  final String userId;
+
+  const FetchAddressRequested({required this.userId});
+}

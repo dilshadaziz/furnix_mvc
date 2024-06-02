@@ -16,7 +16,7 @@ import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/logou
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_options.dart';
 import 'package:ionicons/ionicons.dart';
 
-Column profileItems(AuthBloc authBloc,BuildContext context) {
+Column profileItems(AuthBloc authBloc,BuildContext context,String uid) {
   return Column(
     children: [
       ProfileOptions(
@@ -39,7 +39,7 @@ Column profileItems(AuthBloc authBloc,BuildContext context) {
       const ContentDivider(),
       ProfileOptions(
         onTap: () {
-          Navigator.of(context).push(rightToLeft(MyAddressPage()));
+          Navigator.of(context).push(rightToLeft(MyAddressPage(userId: uid,)));
         },
         item: 'My Address',
         icon: CupertinoIcons.map_pin_ellipse,

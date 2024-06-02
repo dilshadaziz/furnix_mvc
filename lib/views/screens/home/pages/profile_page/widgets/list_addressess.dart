@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
+import 'package:furnix_store/models/address_model.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 
-ListView listAddressess(AddressBloc addressBloc, int selectedAddressIndex,List<Map<String, String>> addresses) {
+ListView listAddressess(AddressBloc addressBloc, int selectedAddressIndex,List<AddressModel> addresses) {
     return ListView.builder(
               shrinkWrap: true,
               itemCount: addresses.length,
@@ -20,6 +22,7 @@ ListView listAddressess(AddressBloc addressBloc, int selectedAddressIndex,List<M
                       child: ListTile(
                         selected: index == selectedAddressIndex,
                         selectedTileColor: FColors.primaryBgColor,
+                        selectedColor: Colors.black87,
                         leading: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -28,13 +31,13 @@ ListView listAddressess(AddressBloc addressBloc, int selectedAddressIndex,List<M
                           ],
                         ),
                         title: Text(
-                          addresses[index]['name']!,
+                          addresses[index].name,
                           style: TextStyle(
                               fontSize: getWidth(context) * 0.037,
                               fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(
-                          addresses[index]['address']!,
+                          addresses[index].location,
                           style: TextStyle(
                               color: FColors.onBoardingSubTitleColor
                                   .withOpacity(0.6),

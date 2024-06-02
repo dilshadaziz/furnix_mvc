@@ -67,7 +67,7 @@ class FirebaseAuthService {
           profileUrl: user.user!.photoURL,
           location: '',
           password: '',
-          addresses: [],
+          addresses: [{}],
           // mobileNumber: ''
           );
       return userModel;
@@ -141,5 +141,9 @@ class FirebaseAuthService {
   User getCurrentUser() {
     print(_auth.currentUser!);
     return _auth.currentUser!;
+  }
+
+  User? checkUserAlreadyLoggedIn() {
+    return _auth.currentUser;
   }
 }

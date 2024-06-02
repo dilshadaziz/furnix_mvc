@@ -12,15 +12,16 @@ class FormContainerWidget extends StatefulWidget {
   bool fetchLocation = false;
   TextEditingController? passwordController;
 
-  FormContainerWidget(
-      {super.key,
-      required this.icon,
-      required this.hintText,
-      required this.controller,
-      required this.inputType,
-      required this.isPassword,
-      this.fetchLocation = false,
-      this.passwordController});
+  FormContainerWidget({
+    super.key,
+    required this.icon,
+    required this.hintText,
+    required this.controller,
+    required this.inputType,
+    required this.isPassword,
+    this.fetchLocation = false,
+    this.passwordController,
+  });
 
   @override
   State<FormContainerWidget> createState() => _FormContainerWidgetState();
@@ -44,7 +45,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           ? 10
           : widget.inputType == TextInputType.streetAddress
               ? 33
-              : null,
+              : widget.inputType == TextInputType.number ? 6 : null,
       buildCounter: widget.inputType == TextInputType.phone
           ? (context,
               {required currentLength,

@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
+import 'package:furnix_store/services/auth/firebase_auth.service.dart';
+import 'package:furnix_store/services/user/firebase_user.service.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
+import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
+import 'package:furnix_store/views/screens/auth/widgets/text_form_field.dart';
 import 'package:furnix_store/views/widgets/custom_app_bar.dart';
 
 class AddAddressPage extends StatelessWidget {
@@ -10,77 +15,80 @@ class AddAddressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AddressBloc addressBloc = context.read<AddressBloc>();
-
-    String fullName = '';
-    String mobileNumber = '';
-    String address = '';
-    String pincode = '';
+    final addressBloc = context.read<AddressBloc>();
+    final fullNameController = TextEditingController();
+    final addressController = TextEditingController();
+    final mobileNumberController = TextEditingController();
+    final pincodeController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+    final userId = FirebaseAuthService().getCurrentUser().uid;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Address'),
+      appBar: customAppBar(
+        context: context,
+        title: 'Add Address',
       ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AddressAdded) {
             // Address added successfully, navigate back or show success message
+            print('address added');
             Navigator.pop(context);
           }
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Full Name'),
-                onChanged: (value) {
-                  fullName = value;
-                },
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FormContainerWidget(
+                      icon: CupertinoIcons.person,
+                      hintText: 'Full name',
+                      controller: fullNameController,
+                      inputType: TextInputType.name,
+                      isPassword: false),
+                  const SizedBox(height: 20),
+                  FormContainerWidget(
+                      icon: CupertinoIcons.phone,
+                      hintText: 'Mobile Number',
+                      controller: mobileNumberController,
+                      inputType: TextInputType.phone,
+                      isPassword: false),
+                  const SizedBox(height: 20),
+                  FormContainerWidget(
+                      icon: Icons.location_on_outlined,
+                      hintText: 'Location',
+                      controller: addressController,
+                      inputType: TextInputType.streetAddress,
+                      isPassword: false),
+                  const SizedBox(height: 20),
+                  FormContainerWidget(
+                      icon: CupertinoIcons.map_pin_ellipse,
+                      hintText: 'Pincode',
+                      controller: pincodeController,
+                      inputType: TextInputType.number,
+                      isPassword: false),
+                  const SizedBox(height: 20),
+                  elevatedButton(
+                      text: 'Add Address',
+                      context: context,
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          addressBloc.add(AddAddressRequested(
+                            userId: userId,
+                            fullName: fullNameController.text,
+                            mobileNumber: mobileNumberController.text,
+                            address: addressController.text,
+                            pincode: pincodeController.text,
+                          ));
+                        }
+                      })
+                ],
               ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Mobile Number'),
-                keyboardType: TextInputType.phone,
-                onChanged: (value) {
-                  mobileNumber = value;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Address'),
-                maxLines: 3,
-                onChanged: (value) {
-                  address = value;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Pincode'),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  pincode = value;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Dispatch AddAddressRequested event with the entered details
-                  addressBloc.add(AddAddressRequested(
-                    fullName: fullName,
-                    mobileNumber: mobileNumber,
-                    address: address,
-                    pincode: pincode,
-                  ));
-                },
-                child: Text('Add Address'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: FColors.primaryColor,
-                  foregroundColor: Colors.white,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

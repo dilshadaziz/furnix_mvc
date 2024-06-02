@@ -4,12 +4,11 @@ import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
+import 'package:furnix_store/bloc/splash/splash.bloc.dart';
 import 'package:furnix_store/repositories/auth_repository.dart';
+import 'package:furnix_store/repositories/user_repository.dart';
 import 'package:furnix_store/services/auth/firebase_auth.service.dart';
-import 'package:furnix_store/views/screens/auth/pages/forgot_password_page.dart';
-import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
-import 'package:furnix_store/views/screens/auth/pages/send_verification_page.dart';
-import 'package:furnix_store/views/screens/on_boarding/pages/on_boarding_1.dart';
+import 'package:furnix_store/views/screens/splash/splash_screen.dart';
 
 class BlocProviderScope extends StatelessWidget {
   const BlocProviderScope({super.key});
@@ -21,12 +20,16 @@ class BlocProviderScope extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => UserRepository(),
+        ),
         
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (context) => SplashBloc(authRepository: context.read<AuthRepository>(),userRepository: context.read<UserRepository>())),
           BlocProvider(
-            create: (context) => OnboardingBloc(),
+            create: (context) => OnboardingBloc(authRepository: context.read<AuthRepository>(),userRepository: context.read<UserRepository>()),
           ),
           BlocProvider(
             create: (context) => AuthBloc(
@@ -37,7 +40,7 @@ class BlocProviderScope extends StatelessWidget {
             create: (context) => BottomNavBloc(),
           ),
           BlocProvider(
-            create: (context) => AddressBloc(),
+            create: (context) => AddressBloc(userRepository: context.read<UserRepository>()),
           ),
         ],
         child: MaterialApp(
@@ -47,7 +50,7 @@ class BlocProviderScope extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
           ),
-          home: OnBoarding1(),
+          home: SplashScreen(),
           // routerConfig: router,
         ),
       ),

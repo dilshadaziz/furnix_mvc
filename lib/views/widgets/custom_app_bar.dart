@@ -7,7 +7,7 @@ import 'package:furnix_store/utils/device/devices.dart';
 PreferredSizeWidget customAppBar({
   required BuildContext context,
   required String title,
-  required AuthBloc authBloc,
+  AuthBloc? authBloc,
 }) {
   return PreferredSize(
       preferredSize: Size.fromHeight(getHeight(context) * 0.06),
@@ -20,7 +20,7 @@ PreferredSizeWidget customAppBar({
                 leading: IconButton(
                     onPressed: () {
                       if(title == 'Send Verification'){
-                      authBloc.add(AuthNavigateToSignUpRequested());
+                      authBloc!.add(AuthNavigateToSignUpRequested());
                       }
                       Navigator.of(context).pop();
                     },

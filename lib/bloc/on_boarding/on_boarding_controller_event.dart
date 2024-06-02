@@ -13,3 +13,6 @@ final class OnboardingPreviousButtonPressed extends OnboardingEvent {
   final int currentPage;
   OnboardingPreviousButtonPressed({required this.currentPage});
 }
+
+final class CheckUserAlreadyLoggedIn extends OnboardingEvent{
+}
