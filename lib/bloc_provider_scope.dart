@@ -5,6 +5,7 @@ import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
 import 'package:furnix_store/bloc/splash/splash.bloc.dart';
+import 'package:furnix_store/bloc/user/user.bloc.dart';
 import 'package:furnix_store/repositories/auth_repository.dart';
 import 'package:furnix_store/repositories/user_repository.dart';
 import 'package:furnix_store/services/auth/firebase_auth.service.dart';
@@ -37,10 +38,13 @@ class BlocProviderScope extends StatelessWidget {
             )
           ),
           BlocProvider(
+            create: (context) => UserBloc(userRepository: context.read<UserRepository>())
+          ),
+          BlocProvider(
             create: (context) => BottomNavBloc(),
           ),
           BlocProvider(
-            create: (context) => AddressBloc(userRepository: context.read<UserRepository>()),
+            create: (context) => AddressBloc(userRepository: context.read<UserRepository>(),authRepository: context.read<AuthRepository>()),
           ),
         ],
         child: MaterialApp(

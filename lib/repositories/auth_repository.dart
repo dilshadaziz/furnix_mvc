@@ -75,8 +75,8 @@ class AuthRepository {
   Future<void> logout() async {
     return await _authService.logout();
   }
-  void getCurrentUser(){
-    _authService.getCurrentUser();
+  String getCurrentUser(){
+    return _authService.getCurrentUser();
   }
    User? checkUserAlreadyLoggedIn() {
     return _authService.checkUserAlreadyLoggedIn();

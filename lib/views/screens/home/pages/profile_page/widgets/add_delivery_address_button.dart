@@ -8,8 +8,8 @@ import 'package:furnix_store/views/screens/home/pages/profile_page/pages/add_add
 
 GestureDetector addNewAddressButton(BuildContext context) {
   return GestureDetector(
-    onTap: () async {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddAddressPage()));
+    onTap: () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const AddAddressPage()));
     },
     child: Padding(
       padding: EdgeInsets.only(

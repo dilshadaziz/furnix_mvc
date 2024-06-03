@@ -11,14 +11,14 @@ sealed class AddressEvent extends Equatable{
 
 
 class AddAddressRequested extends AddressEvent {
-  final String fullName;
+  final String name;
   final String mobileNumber;
   final String address;
   final String pincode;
   final String userId;
 
   const AddAddressRequested({
-    required this.fullName,
+    required this.name,
     required this.mobileNumber,
     required this.address,
     required this.pincode,
@@ -26,7 +26,7 @@ class AddAddressRequested extends AddressEvent {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [name,mobileNumber,address,pincode,userId,];
 }
 
 class ChangeSelectedAddressRequested extends AddressEvent{
@@ -40,4 +40,9 @@ final class FetchAddressRequested extends AddressEvent{
   final String userId;
 
   const FetchAddressRequested({required this.userId});
+}
+
+final class RemoveAddressRequested extends AddressEvent{
+  final int index;
+  const RemoveAddressRequested({ required this.index});
 }

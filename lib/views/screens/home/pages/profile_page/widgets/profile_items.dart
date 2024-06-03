@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
@@ -16,12 +17,12 @@ import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/logou
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_options.dart';
 import 'package:ionicons/ionicons.dart';
 
-Column profileItems(AuthBloc authBloc,BuildContext context,String uid) {
+Column profileItems(AuthBloc authBloc,AddressBloc addressBloc, BuildContext context,UserModel user) {
   return Column(
     children: [
       ProfileOptions(
         onTap: () {
-          Navigator.of(context).push(rightToLeft(const EditProfilePage(),duration: const Duration(milliseconds: 350)));
+          Navigator.of(context).push(rightToLeft(EditProfilePage(user:user),duration: const Duration(milliseconds: 350)));
         },
         item: 'Edit Profile',
         icon: Ionicons.person,
@@ -39,7 +40,8 @@ Column profileItems(AuthBloc authBloc,BuildContext context,String uid) {
       const ContentDivider(),
       ProfileOptions(
         onTap: () {
-          Navigator.of(context).push(rightToLeft(MyAddressPage(userId: uid,)));
+          addressBloc.add(FetchAddressRequested(userId: user.uid));
+          Navigator.of(context).push(rightToLeft(MyAddressPage(userId: user.uid,)));
         },
         item: 'My Address',
         icon: CupertinoIcons.map_pin_ellipse,
@@ -47,6 +49,7 @@ Column profileItems(AuthBloc authBloc,BuildContext context,String uid) {
       const ContentDivider(),
       ProfileOptions(
         onTap: () {
+          
           Navigator.of(context).push(rightToLeft(ForgotPasswordPage(),duration: const Duration(milliseconds: 350)));
         },
         item: 'Security',

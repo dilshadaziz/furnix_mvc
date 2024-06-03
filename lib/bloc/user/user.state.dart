@@ -1,6 +1,3 @@
-
-
-
 part of 'user.bloc.dart';
 
 sealed class UserState extends Equatable {
@@ -29,3 +26,7 @@ final class UserError extends UserState {
   @override
   List<Object> get props => [message];
 }
+
+final class EditProfileLoading extends UserState {}
+
+final class EditProfileSuccess extends UserState {}

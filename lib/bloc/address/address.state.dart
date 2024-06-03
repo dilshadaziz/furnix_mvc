@@ -23,6 +23,8 @@ final class AddressChanged extends AddressState {
 final class AddressLoaded extends AddressState {
   final List<AddressModel> addresses;
   const AddressLoaded({required this.addresses});
+  @override
+  List<Object> get props => [addresses];
 }
 
 final class AddAddressLoading extends AddressState {}
@@ -30,3 +32,5 @@ final class AddAddressLoading extends AddressState {}
 final class AddAddressFailed extends AddressState {}
 
 final class FetchAddressError extends AddressState {}
+
+final class AddressRemovedSuccessfully extends AddressState {}

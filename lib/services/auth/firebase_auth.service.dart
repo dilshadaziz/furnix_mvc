@@ -138,9 +138,9 @@ class FirebaseAuthService {
     return _auth.currentUser!.emailVerified;
   }
 
-  User getCurrentUser() {
+  String getCurrentUser() {
     print(_auth.currentUser!);
-    return _auth.currentUser!;
+    return _auth.currentUser!.uid;
   }
 
   User? checkUserAlreadyLoggedIn() {
