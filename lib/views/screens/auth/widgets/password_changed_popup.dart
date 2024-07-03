@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:lottie/lottie.dart';

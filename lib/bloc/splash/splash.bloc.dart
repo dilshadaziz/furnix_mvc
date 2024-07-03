@@ -1,11 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:furnix_store/features/auth/domain/repositories/firebase_repo.dart';
 import 'package:furnix_store/models/user_model.dart';
 import 'package:furnix_store/repositories/auth_repository.dart';
 import 'package:furnix_store/repositories/user_repository.dart';
-import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 
 part 'splash.event.dart';
 part 'splash.state.dart';

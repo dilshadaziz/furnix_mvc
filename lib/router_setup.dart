@@ -1,6 +1,5 @@
 import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
 import 'package:furnix_store/views/screens/auth/pages/sign_up_screen.dart';
-import 'package:furnix_store/views/screens/home/main_screen.dart';
 import 'package:furnix_store/views/screens/on_boarding/pages/on_boarding_1.dart';
 import 'package:furnix_store/utils/constants/route_names.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +11,7 @@ final router = GoRouter(routes: [
       builder: (context, state) => const LoginScreen(),
       routes: [
         GoRoute(
-          name:Go.onboarding,
+          name: Go.onboarding,
           path: 'onBoarding',
           builder: (context, state) => const OnBoarding1(),
         ),

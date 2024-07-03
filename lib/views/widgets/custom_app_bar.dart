@@ -11,38 +11,36 @@ PreferredSizeWidget customAppBar({
 }) {
   return PreferredSize(
       preferredSize: Size.fromHeight(getHeight(context) * 0.06),
-      child: BlocBuilder<AuthBloc,AuthState>(
-        builder: (context,state) {
-          return CustomScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            slivers: [
-              SliverAppBar(
-                leading: IconButton(
-                    onPressed: () {
-                      if(title == 'Send Verification'){
+      child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        return CustomScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              leading: IconButton(
+                  onPressed: () {
+                    if (title == 'Send Verification') {
                       authBloc!.add(AuthNavigateToSignUpRequested());
-                      }
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: FColors.primaryColor,
-                    )),
-                centerTitle: true,
-                title: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87.withOpacity(0.7)),
-                    ),
-                  ],
-                ),
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: FColors.primaryColor,
+                  )),
+              centerTitle: true,
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87.withOpacity(0.7)),
+                  ),
+                ],
               ),
-            ],
-          );
-        }
-      ));
+            ),
+          ],
+        );
+      }));
 }

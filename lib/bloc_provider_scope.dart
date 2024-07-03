@@ -3,10 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/bottom_nav/bottom_nav.bloc.dart';
+import 'package:furnix_store/bloc/cart/cart_bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
+import 'package:furnix_store/bloc/order/order_bloc.dart';
+import 'package:furnix_store/bloc/product/product_bloc.dart';
 import 'package:furnix_store/bloc/splash/splash.bloc.dart';
 import 'package:furnix_store/bloc/user/user.bloc.dart';
 import 'package:furnix_store/repositories/auth_repository.dart';
+import 'package:furnix_store/repositories/product_repository.dart';
 import 'package:furnix_store/repositories/user_repository.dart';
 import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 import 'package:furnix_store/views/screens/splash/splash_screen.dart';
@@ -23,6 +27,9 @@ class BlocProviderScope extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => UserRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => FirebaseProductRepository(),
         ),
         
       ],
@@ -45,6 +52,15 @@ class BlocProviderScope extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AddressBloc(userRepository: context.read<UserRepository>(),authRepository: context.read<AuthRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => ProductBloc(productRepository: context.read<FirebaseProductRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => CartBloc(),
+          ),
+          BlocProvider(
+            create: (context) => OrderBloc(),
           ),
         ],
         child: MaterialApp(

@@ -9,7 +9,6 @@ import 'package:furnix_store/models/user_model.dart';
 import 'package:furnix_store/navigations/right_to_left.dart';
 import 'package:furnix_store/utils/helper/profile_screen_functions.dart';
 import 'package:furnix_store/views/screens/auth/pages/forgot_password_page.dart';
-import 'package:furnix_store/views/screens/home/main_screen.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/pages/edit_profile_page.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/pages/my_address_page.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/content_divider.dart';
@@ -17,12 +16,14 @@ import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/logou
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_options.dart';
 import 'package:ionicons/ionicons.dart';
 
-Column profileItems(AuthBloc authBloc,AddressBloc addressBloc, BuildContext context,UserModel user) {
+Column profileItems(AuthBloc authBloc, AddressBloc addressBloc,
+    BuildContext context, UserModel user) {
   return Column(
     children: [
       ProfileOptions(
         onTap: () {
-          Navigator.of(context).push(rightToLeft(EditProfilePage(user:user),duration: const Duration(milliseconds: 350)));
+          Navigator.of(context).push(rightToLeft(EditProfilePage(user: user),
+              duration: const Duration(milliseconds: 350)));
         },
         item: 'Edit Profile',
         icon: Ionicons.person,
@@ -30,9 +31,10 @@ Column profileItems(AuthBloc authBloc,AddressBloc addressBloc, BuildContext cont
       const ContentDivider(),
       ProfileOptions(
         onTap: () {
-          context.read<BottomNavBloc>().add(
-                      const BottomNavItemSelected(2)); // Dispatch event on tap
-                  HapticFeedback.lightImpact(); // Provide haptic feedback
+          context
+              .read<BottomNavBloc>()
+              .add(const BottomNavItemSelected(2)); // Dispatch event on tap
+          HapticFeedback.lightImpact(); // Provide haptic feedback
         },
         item: 'My Orders',
         icon: Icons.menu_book_rounded,
@@ -41,21 +43,24 @@ Column profileItems(AuthBloc authBloc,AddressBloc addressBloc, BuildContext cont
       ProfileOptions(
         onTap: () {
           addressBloc.add(FetchAddressRequested(userId: user.uid));
-          Navigator.of(context).push(rightToLeft(MyAddressPage(userId: user.uid,)));
+          Navigator.of(context).push(rightToLeft(MyAddressPage(
+            userId: user.uid,
+          )));
         },
         item: 'My Address',
         icon: CupertinoIcons.map_pin_ellipse,
       ),
       const ContentDivider(),
-      ProfileOptions(
-        onTap: () {
-          
-          Navigator.of(context).push(rightToLeft(ForgotPasswordPage(),duration: const Duration(milliseconds: 350)));
-        },
-        item: 'Security',
-        icon: Ionicons.shield_checkmark_outline,
-      ),
-      const ContentDivider(),
+      if (user.password.isNotEmpty)
+        ProfileOptions(
+          onTap: () {
+            Navigator.of(context).push(rightToLeft(ForgotPasswordPage(),
+                duration: const Duration(milliseconds: 350)));
+          },
+          item: 'Security',
+          icon: Ionicons.shield_checkmark_outline,
+        ),
+      if(user.password.isNotEmpty)const ContentDivider(),
       ProfileOptions(
         onTap: () async {
           await ProfileScreenFunctions().launchEmail();

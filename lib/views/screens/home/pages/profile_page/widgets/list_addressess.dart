@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/models/address_model.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
@@ -41,7 +38,7 @@ Dismissible individualAddress(
     background: Container(
       alignment: Alignment.centerLeft,
       color: Colors.blue.shade200,
-      child: Padding(
+      child: const Padding(
         padding: EdgeInsets.only(left: 15.0),
         child: Icon(Icons.edit_calendar_outlined),
       ),
@@ -49,7 +46,7 @@ Dismissible individualAddress(
     secondaryBackground: Container(
       alignment: Alignment.centerRight,
       color: Colors.red,
-      child: Padding(
+      child: const Padding(
           padding: EdgeInsets.only(right: 15.0),
           child: Icon(Icons.delete_forever_outlined, color: Colors.white)),
     ),

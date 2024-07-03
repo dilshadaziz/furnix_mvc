@@ -8,14 +8,11 @@ import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
 import 'package:furnix_store/views/screens/auth/widgets/social_media_signIn.dart';
 import 'package:furnix_store/views/screens/auth/widgets/span_text.dart';
 import 'package:furnix_store/views/screens/auth/widgets/text_form_field.dart';
-import 'package:furnix_store/views/screens/home/main_screen.dart';
-import 'package:furnix_store/utils/constants/route_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();

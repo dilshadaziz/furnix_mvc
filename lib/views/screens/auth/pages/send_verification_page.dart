@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,18 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
-import 'package:furnix_store/services/user/firebase_user.service.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
-import 'package:furnix_store/utils/constants/screen_texts.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
-import 'package:furnix_store/views/screens/auth/widgets/password_changed_popup.dart';
 import 'package:furnix_store/views/screens/auth/widgets/register_succeed_popup.dart';
 import 'package:furnix_store/views/screens/home/main_screen.dart';
-import 'package:furnix_store/views/screens/home/pages/home_page/home_page.dart';
-import 'package:furnix_store/views/screens/on_boarding/widgets/texts.dart';
 import 'package:furnix_store/views/widgets/custom_app_bar.dart';
-import 'package:ionicons/ionicons.dart';
 
 class SendVerificationPage extends StatelessWidget {
   final UserModel user;
@@ -28,15 +21,6 @@ class SendVerificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int start = 15;
-    Timer timer = Timer.periodic(Duration(seconds: 1), (timer) { 
-      if(start == 0){
-        timer.cancel();
-      }
-      else{
-        start--;
-      }
-    });
     final authBloc = context.read<AuthBloc>();
     String cautionText = 'Make sure the entered email address is valid and ready to recieve notifications';
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
@@ -48,7 +32,7 @@ class SendVerificationPage extends StatelessWidget {
       }
       if (state is AuthEmailVerificationFailed) {
         // Show snackBar to verify the email through from the gmail app
-        print('${state.message}');
+        debugPrint(state.message);
       }
       if(state is AuthAuthenticated){
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MainScreenBody(user: state.user,),), (route) => false);

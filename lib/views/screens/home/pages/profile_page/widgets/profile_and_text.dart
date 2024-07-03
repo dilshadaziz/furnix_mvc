@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/user/user.bloc.dart';
@@ -6,8 +7,8 @@ import 'package:furnix_store/models/user_model.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 
-class profilePicAndText extends StatelessWidget {
-  profilePicAndText({
+class ProfilePicAndText extends StatelessWidget {
+  ProfilePicAndText({
     super.key,
     required this.userBloc,
     required this.user,
@@ -39,13 +40,13 @@ class profilePicAndText extends StatelessWidget {
                     radius: getWidth(context) * 0.2,
                     backgroundColor: FColors.primaryBgColor,
                   ),
-                  Positioned(
-                          child: CircleAvatar(
-                            child: Icon(Icons.add_a_photo_outlined),
-                            backgroundColor: FColors.secondaryColor,
-                          ),
+                  const Positioned(
                           right: 10,
                           bottom: 10,
+                          child: CircleAvatar(
+                            backgroundColor: FColors.secondaryColor,
+                            child: Icon(Icons.add_a_photo_outlined),
+                          ),
                         )
                 ],
               ),

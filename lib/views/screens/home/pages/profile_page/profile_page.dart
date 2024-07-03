@@ -1,20 +1,12 @@
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/user/user.bloc.dart';
-import 'package:furnix_store/utils/constants/colors.dart';
-import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/custom_profile_appbar.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/profile_items.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../../../../../models/user_model.dart';
 import 'widgets/profile_and_text.dart';
 
@@ -33,12 +25,12 @@ class ProfilePage extends StatelessWidget {
       appBar: customProfileAppBar(context),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, userState) {
-          if(userState is UserLoaded){
+          if (userState is UserLoaded) {
             user = userState.user;
             debugPrint('userLoaded ${user.location}');
           }
         },
-        builder: (context,state) => BlocConsumer<AuthBloc, AuthState>(
+        builder: (context, state) => BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthUnauthenticated) {
               Navigator.of(context).pushAndRemoveUntil(
@@ -54,8 +46,8 @@ class ProfilePage extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: Column(children: [
-                    profilePicAndText(userBloc: userBloc, user: user),
-                    profileItems(authBloc, addressBloc, context,user)
+                    ProfilePicAndText(userBloc: userBloc, user: user),
+                    profileItems(authBloc, addressBloc, context, user)
                   ]),
                 )
               ],

@@ -1,15 +1,9 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
-import 'package:furnix_store/features/auth/domain/repositories/firebase_repo.dart';
 import 'package:furnix_store/models/address_model.dart';
-import 'package:furnix_store/services/user/firebase_user.service.dart';
-import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/constants/toasts.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/widgets/add_delivery_address_button.dart';

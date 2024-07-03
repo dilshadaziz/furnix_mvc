@@ -2,10 +2,8 @@
 import 'package:furnix_store/views/screens/auth/pages/login_screen.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
-import 'package:furnix_store/utils/constants/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 Widget circleButton(
     BuildContext context, PageController pageController, int currentPageIndex) {
@@ -31,7 +29,7 @@ Widget circleButton(
           _saveAndGoToLogin(context);
         },
         onHorizontalDragStart: (details){
-          print(details);
+          debugPrint("$details");
         },
         onTap: () {
           pageController.nextPage(

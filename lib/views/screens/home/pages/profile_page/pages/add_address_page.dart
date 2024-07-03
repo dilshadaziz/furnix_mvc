@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/address/address.bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/services/auth/firebase_auth.service.dart';
-import 'package:furnix_store/services/user/firebase_user.service.dart';
-import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/constants/toasts.dart';
 import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
 import 'package:furnix_store/views/screens/auth/widgets/text_form_field.dart';
@@ -33,7 +31,7 @@ class AddAddressPage extends StatelessWidget {
         listener: (context, state) {
           if (state is AddressAdded) {
             // Address added successfully, navigate back or show success message
-            print('address added');
+            debugPrint('address added');
             toast('New address added');
             Navigator.of(context).pop();
           }

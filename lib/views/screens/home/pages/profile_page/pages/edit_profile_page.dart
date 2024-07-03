@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/user/user.bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
@@ -9,8 +9,6 @@ import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/auth/widgets/elevated_Button.dart';
 import 'package:furnix_store/views/widgets/custom_app_bar.dart';
 import 'package:furnix_store/views/widgets/edit_form_field_container.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:lottie/lottie.dart';
 
 class EditProfilePage extends StatelessWidget {
   UserModel user;
@@ -25,6 +23,9 @@ class EditProfilePage extends StatelessWidget {
     return BlocConsumer<UserBloc, UserState>(
       listener: (context, state) {
         if(state is UserLoaded){
+          user = state.user;
+        }
+        if(state is EditProfileSuccess){
           Navigator.pop(context);
         }
       },
@@ -55,13 +56,13 @@ class EditProfilePage extends StatelessWidget {
                           radius: getWidth(context) * 0.2,
                           backgroundColor: FColors.primaryBgColor,
                         ),
-                        Positioned(
-                          child: CircleAvatar(
-                            child: Icon(Icons.add_a_photo_outlined),
-                            backgroundColor: FColors.secondaryColor,
-                          ),
+                        const Positioned(
                           right: 10,
                           bottom: 10,
+                          child: CircleAvatar(
+                            backgroundColor: FColors.secondaryColor,
+                            child: Icon(Icons.add_a_photo_outlined),
+                          ),
                         )
                       ],
                     ),
@@ -94,9 +95,10 @@ class EditProfilePage extends StatelessWidget {
                       context: context,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          final updatedUser = UserModel(uid: user.uid, fullName: fullNameController.text, email: user.email, location: locationController.text, password: user.password, addresses: user.addresses,profileUrl: user.profileUrl);
+                          final updatedUser = UserModel(uid: user.uid, fullName: fullNameController.text, email: user.email, location: locationController.text, password: user.password, addresses: user.addresses);
                           userBloc.add(EditProfileRequested(
                             user: updatedUser,
+
                           ));
                         }
                       })
@@ -117,7 +119,7 @@ class EditProfilePage extends StatelessWidget {
         ? NetworkImage('${state.user.profileUrl}')
         : state is UserLoading
             ? null
-            : user.profileUrl != null
+            :  state is EditProfileLoading ? NetworkImage('${user.profileUrl}') : user.profileUrl != null
                 ? NetworkImage(user.profileUrl!)
                 : null;
   }

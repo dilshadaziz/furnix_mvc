@@ -1,7 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:furnix_store/services/auth/firebase_auth.service.dart';
-import 'package:furnix_store/services/user/firebase_user.service.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:furnix_store/views/screens/home/pages/profile_page/pages/add_address_page.dart';

@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/models/user_model.dart';
 import 'package:furnix_store/utils/constants/toasts.dart';
@@ -61,8 +59,8 @@ Future<void> _onEditProfileRequested(EditProfileRequested event, Emitter<UserSta
     await userRepository.editProfile(user: event.user);
     // Emit success state (optional)
     final user = await userRepository.fetchUser(userId: _auth.currentUser!.uid);
-    emit(EditProfileSuccess());
     emit(UserLoaded(user: user));
+    emit(EditProfileSuccess());
   } on Exception catch (e) {
     // Handle exceptions generically
     print('Error updating profile: $e');

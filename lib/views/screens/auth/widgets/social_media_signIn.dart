@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnix_store/bloc/auth/auth.bloc.dart';
-import 'package:furnix_store/services/auth/firebase_auth.service.dart';
 import 'package:furnix_store/utils/constants/colors.dart';
 import 'package:furnix_store/utils/device/devices.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +14,9 @@ Widget socialMediaSignIn(BuildContext context, AuthBloc authBloc) {
           authBloc.add(GoogleSignInRequested());
         },
         style: ButtonStyle(
-            shadowColor: MaterialStatePropertyAll(FColors.primaryColor),
-            overlayColor: MaterialStatePropertyAll(FColors.primaryBgColor),
-            elevation: MaterialStatePropertyAll(3),
+            shadowColor: const MaterialStatePropertyAll(FColors.primaryColor),
+            overlayColor: const MaterialStatePropertyAll(FColors.primaryBgColor),
+            elevation: const MaterialStatePropertyAll(3),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: BorderSide(

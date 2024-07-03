@@ -1,8 +1,5 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:furnix_store/bloc/auth/auth.bloc.dart';
 import 'package:furnix_store/bloc/on_boarding/on_boarding_controller_bloc.dart';
-import 'package:furnix_store/views/screens/home/main_screen.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/bottom_buttons.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/oval_image.dart';
 import 'package:furnix_store/views/screens/on_boarding/widgets/texts.dart';

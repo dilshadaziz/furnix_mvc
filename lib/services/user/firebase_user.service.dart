@@ -51,8 +51,6 @@ class FirebaseUserService {
 
       if (!userDoc.exists) {
         userCollection.doc(userId).set(newUser);
-      } else {
-        userCollection.doc(userId).update(newUser);
       }
     }).catchError((error) {
       toast("Some error occured");
@@ -157,7 +155,6 @@ Future<void> editProfile({required UserModel user}) async {
     await userRef.update({
       'location': user.location,
       'fullName': user.fullName,
-      'profileUrl': user.profileUrl,
     });
     // Success handling (optional)
     toast('Profile updated successfully!');

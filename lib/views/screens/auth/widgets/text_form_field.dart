@@ -34,7 +34,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     return TextFormField(
       inputFormatters: widget.hintText == 'Full name'
           ? [FilteringTextInputFormatter.deny(RegExp(r'[a-z]'))]
-          : widget.hintText == 'Email address'
+          : widget.hintText == 'Email address' || widget.isPassword
               ? [FilteringTextInputFormatter.deny(RegExp(r' '))]
               : null,
       textCapitalization: widget.hintText == 'Full name'
